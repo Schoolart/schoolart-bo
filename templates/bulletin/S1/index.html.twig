@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ kernel }}\public\style\S1\style.css">
+    <title>Bulletin</title>
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <img src="{{ kernel }}\public\images\instituts\{{ etudiant.instituts[0].logo }}" alt="ISM icon">
+    </div>
+    <div class="orange-bar-left">
+
+    </div>
+    <div class="white-bar-left">
+
+    </div>
+
+    <div class="main-header">
+        <div class="top-bar">
+            <div class="orange-top">
+
+            </div>
+            <div class="brown-top">
+
+            </div>
+        </div>
+        <div class="student-details">
+            <div class="top-info">
+                <div class="left">
+                    <p class="label">
+                        Grade:
+                    </p>
+                    <p class="value">
+                        {{ grade.intitule }}
+                    </p>
+                </div>
+                <div class="right">
+                    <p class="label">
+                        Matricule :
+                    </p>
+                    <p class="value">
+                        {{ etudiant.identifiant }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="info">
+                <p class="label">
+                    Domaine:
+                </p>
+                <p class="value">
+                    {{ domaine.intitule }}
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="label">
+                    Mention:
+                </p>
+                <p class="value">
+                    {{ mention.intitule }}
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="label">
+                    Spécialité:
+                </p>
+                <p class="value">
+                    {{ specialisation.intitule }}
+                </p>
+            </div>
+
+            <div class="bottom-info">
+                <div class="info">
+                    <p class="label">
+                        Nom de l'étudiant(e):
+                    </p>
+                    <p class="value">
+                        {{ etudiant.prenom ~ "  " ~ etudiant.nom}}
+                    </p>
+                </div>
+
+                <div class="info">
+                    <p class="label">
+                        Date et lieu de naissance:
+                    </p>
+                    <p class="value">
+                        Né(e) le {{  etudiant.dateNaissance |date("d/m/Y") ~ " à " ~ etudiant.villeNaissance ~ ' (' ~ etudiant.paysNaissance ~ ')' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+<main class="main">
+    <div class="period-details">
+        <table class="periode-table">
+            <thead>
+            <th>Année Académique</th>
+            <th>Classe</th>
+            <th>Période</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ annee.libelle }}</td>
+                <td>{{ classe.nomClasse }}</td>
+                <td>{{ periode.libelle }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <table class="main-table">
+        <thead>
+        <th>Code UE</th>
+        <th class="col-width" colspan="2">Eléments Constitutifs</th>
+        <th>Moyenne CC</th>
+        <th>Moyenne Examen</th>
+        <th>Coefficient</th>
+        <th>Moyenne UE</th>
+        <th>Crédits Capitalisés</th>
+        <th>Resultat UE</th>
+        <th>Session UE</th>
+        </thead>
+        <tbody>
+        {% for  ue in ues %}
+            <tr class="ue-separator">
+                <td class="ue-title-vide"></td>
+                <td colspan="9">{{ ue.ueSup.intituleFr |upper }}</td>
+            </tr>
+            <tr>
+                <td rowspan="{{ ue.matieres | length }}  " class="gray-col centered-text p-2 code">{{ ue.codeUe }}</td>
+                <td class="gray-col" colspan="2">{{ ue.matieres[0].matiereSup.intituleFr  }}</td>
+                {% for  note  in ue.matieres[0].notes   %}
+                    <td class="centered-text">{{ ((note.cc1 + note.cc2)/2) | number_format (2,'.',',')  }}</td>
+                    <td class="centered-text">{{ note.examen| number_format (2,'.',',') }}</td>
+                    <td class="centered-text">{{ ue.matieres[0].coefficients }}</td>
+                {% endfor %}
+                <td rowspan="{{ ue.matieres | length }}" class="centered-text">{{ ue.moyenne | number_format (2,'.',',')}}</td>
+                <td rowspan="{{ ue.matieres | length }}" class="centered-text"> {{ ue.creditCapitalise ~ "/" ~ue.credit }}</td>
+                <td rowspan="{{ ue.matieres | length }}"class="centered-text"> {{ ue.resultat}} </td>
+                <td rowspan="{{ ue.matieres | length }}"class="centered-text"> {{ ue.session}} </td>
+            </tr>
+            {% for  matiere in  ue.matieres[1:] %}
+                <tr>
+                    <td class="gray-col" colspan="2">{{ matiere.matiereSup.intituleFr }}</td>
+                    {% for    note  in matiere.notes  %}
+                        <td class="centered-text"> {{ ((note.cc1 + note.cc2)/2 ) | number_format (2,'.',',') }} </td>
+                        <td class="centered-text"> {{ note.examen | number_format (2,'.',',') }} </td>
+                        <td class="centered-text"> {{ matiere.coefficients }} </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="total-general-container">
+        <div class="vide"></div>
+        <div class="total-general">
+            <div class="general">Total Général</div>
+            <div class="nbre">
+                <span>{{ ((totalG + (totalAssiduite - 10)) | number_format (2,'.',',') ) ~ " / " ~ totalGD }}</span></div>
+        </div>
+    </div>
+    <div class="resume">
+        <div class="assiduite">
+            <div class="ligne">
+                <div class="libelle">
+                    Total des absences (en heure)
+                </div>
+                <div class="valeur">
+                    {{ totalAbsence }}
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="libelle">
+                    Absences Justifiées (en heure)
+                </div>
+                <div class="valeur">
+                    {{ totalAbsenceJustifie }}
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="libelle">
+                    Absences Non Justifiées (en heure)
+                </div>
+                <div class="valeur">
+                    {{ totalAbsence - totalAbsenceJustifie  }}
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="libelle">
+                    Moyenne assiduité sur 20
+                </div>
+                <div class="valeur">
+                    <strong>{{ totalAssiduite  | number_format (2,'.',',')}}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="notes-generales">
+            <div class="ligne">
+                <div class="libelle">
+                    Moyenne Semestrielle sur 20
+                </div>
+                <div class="valeur">
+                    <strong>{{ resultat | number_format (2,'.',',')}}</strong>
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="libelle">
+                    Nombre de crédits capitalisés sur {{ totalCredit }}
+                </div>
+                <div class="valeur">
+                    <strong>{{ totalCreditCapitalise }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="moyenne ">
+        <div class="moyenne-column">
+            <div>Observation sur le semestre</div>
+            <div>
+                {{appreciation}}
+                , Semestre {{ totalCredit == totalCreditCapitalise ? "Validé":"Non validé" }}</div>
+
+        </div>
+
+        <div class="moyenne-column margin-lef">
+
+            <div>La Direction</div>
+
+        </div>
+    </div>
+</main>
+
+
+<footer class="footer-container">
+    <div class="text-top">
+        <p class="text-bold">
+            {% set trans_day_hash = {
+                "November": "Novembre",
+                "January": "Janvier",
+                "February": "Février",
+                "March": "Mars",
+                "April":"Avril",
+                "May": "Mai",
+                "June":"Juin",
+                "July":"Juillet",
+                "August": "Août",
+                "September":"Septembre",
+                "October":"Octobre",
+                "December":"Décembre"
+            }
+            %}
+            le {{ "Now" | date('d')}} {{ trans_day_hash[ "Now"|date('F')]  }} {{ "Now" | date('Y') }}
+            </p>
+        <div class="text-align">
+            <div>Système de correspondance des notes</div>
+            <div class="">NB : Aucun duplicata ne sera délivré</div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table text-center bottom-table">
+            <thead>
+            <tr class="text-bold">
+                <th>Note Système Classique</th>
+                <th>ECTS Grade</th>
+                <th>US Grade</th>
+                <th>Japanese Grade</th>
+                <th class="column-none">Comments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>18.00 - 20.00</td>
+                <td>A</td>
+                <td>A</td>
+                <td>S</td>
+                <td class="text-no-center">Exceptional(Excellent)</td>
+            </tr>
+            <tr>
+                <td>16.00 - 18.00</td>
+                <td>A</td>
+                <td>A</td>
+                <td>S</td>
+                <td class="text-no-center">Excellent(Très bien)</td>
+            </tr>
+            <tr>
+                <td>14.00 - 15.99</td>
+                <td>B</td>
+                <td>B</td>
+                <td>A</td>
+                <td class="text-no-center">Very good(Bien)</td>
+            </tr>
+            <tr>
+                <td>12.00 - 13.99</td>
+                <td>C</td>
+                <td>C</td>
+                <td>B</td>
+                <td class="text-no-center">Good(Assez-bien)</td>
+            </tr>
+            <tr>
+                <td>11.00 - 11.99</td>
+                <td>D</td>
+                <td>D</td>
+                <td>C</td>
+                <td class="text-no-center">Satisfactory(Passable)</td>
+            </tr>
+            <tr>
+                <td>10.00 - 10.99</td>
+                <td>E</td>
+                <td>D</td>
+                <td>D</td>
+                <td class="text-no-center">Sufficient(Passable)</td>
+            </tr>
+            <tr>
+                <td>08.00 - 09.99</td>
+                <td>FX</td>
+                <td>F</td>
+                <td>P</td>
+                <td class="text-no-center"> Fail (échec): more work would have been required. Compensation possible</td>
+            </tr>
+            <tr>
+                <td>00.00 - 07.99</td>
+                <td>F</td>
+                <td>F</td>
+                <td>P</td>
+                <td class="text-no-center"> Fail (échec): considerable further work would have been required. Resit the exam</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <p class="text-center footer-text text-bold">{{ institut.nom ~ ': ' ~  institut.adresse1 ~ ' - BP '~ institut.codePostal ~ ' Fann - NINEA: ' ~ institut.adresse2  ~' '~institut.ville ~' - Tel: ' ~  institut.telephone ~ ' - Email: ' ~ institut.email }}</p>
+    <div class="bar-container">
+        <div class="bar-left">
+
+        </div>
+        <div class="bar-right">
+
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

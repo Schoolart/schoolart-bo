@@ -1,0 +1,209 @@
+{% set trans_day_hash = {
+    "November": "Novembre",
+    "January": "Janvier",
+    "February": "Février",
+    "March": "Mars",
+    "April":"Avril",
+    "May": "Mai",
+    "June":"Juin",
+    "July":"Juillet",
+    "August": "Août",
+    "September":"Septembre",
+    "October":"Octobre",
+    "December":"Décembre"
+}
+%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="{{ kernel }}\public\style\Honoraire\style.css">
+    </head>
+    <body>
+        <table class="table1">
+            <tr class="full-text-brown">
+                <td rowspan="2" class="full-orange " style="width:50%;">
+                    <div class="logo"><img src="{{ kernel }}\public\images\instituts\{{ institut.logo }}" alt="ISM icon"></div>
+                    <div class="text-logo">
+                        <div>FICHE DE DECOMPTE HORAIRE
+                        </div>
+
+                        CONTRAT NUMERO : …………</div>
+                </td>
+                <td>
+                    Réf : E22. Anim
+                </td>
+
+                <td rowspan="2" class="full-orange ">Modif : Création
+                </td>
+
+                <td>Date :
+                    {{ dateNow }}
+                </td>
+            </tr>
+            <tr class="full-text-brown">
+                <td>Version N°:02</td>
+                <td>Page : 1/1
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td class="align-left" style="width:50%;">Nom :
+                    {{ professeur.nom }}
+                </td>
+                <td class="align-left" style="width:50%;">Prénoms :
+                    {{ professeur.prenom }}
+                </td>
+            </tr>
+            <tr>
+                <td class="align-left" style="width:50%;">Statut :
+                    {{ professeur.statut }}</td>
+                <td class="align-left" style="width:50%;">Téléphone :
+                    {{ professeur.telephonePortable }}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="align-left" style="width:50%;">Cadre d'intervention</td>
+                <td class="align-left" style="width:50%;">{{ institut.nom }}</td>
+            </tr>
+            <tr>
+                <td class="align-left" style="width:50%;">Classe(s) bénéficiaire(s) :
+                    {{ matiere.classe.nomClasse }}</td>
+                <td class="align-left" style="width:50%;">Spécialisation :
+                    {{ matiere.classe.specialisation.intitule}}
+                </td>
+            </tr>
+            <tr>
+                <td class="align-left" style="width:50%;">Année Académique :
+                    {{ annee.libelle }}</td>
+                <td class="align-left" rowspan="2" style="width:50%;">Module(s) enseigné(s) :
+                    {{ matiere.matiereSup.intituleFr}}</td>
+            </tr>
+            <tr>
+                <td class="align-left" style="width:50%;">Mois :
+                    {{ trans_day_hash[ dateDebut | date('F')]}}</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="7" class="full-orange">
+                    Suivi des volumes horaires
+                </td>
+            </tr>
+            <tr>
+                <td class="" rowspan="2" style="30%">Date</td>
+                <td colspan="2" style="width:15%;">Début</td>
+                <td colspan="2" style="width:15%;">Fin</td>
+                <td rowspan="2" style="width:15%;">Durée</td>
+                <td rowspan="2" style="width:25%;">Signature de l'intervenant</td>
+            </tr>
+            <tr>
+                <td>h</td>
+                <td>mn</td>
+                <td>h</td>
+                <td>mn</td>
+            </tr>
+
+            {% for fiche in fiches %}
+                <tr>
+                    <td>
+                        {{ fiche.date |  date('d/m/Y')}}
+                    </td>
+                    <td>
+                        {{ (fiche.heureDebut | split(':'))[0] }}
+                    </td>
+                    <td>
+                        {{ (fiche.heureDebut | split(':'))[1] }}
+                    </td>
+                    <td>
+                        {{ (fiche.heureFin | split(':'))[0] }}
+                    </td>
+                    <td>
+                        {{ (fiche.heureFin | split(':'))[1] }}
+                    </td>
+                    <td>
+                        {{ fiche.vhe }}
+                    </td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <table>
+            <tr>
+                <td colspan="7" class="full-orange">
+                    Récap hebdomadaire
+                </td>
+            </tr>
+            <tr>
+                <td style="30%">Semaines</td>
+                <td style="width:15%;">VH Hebdo</td>
+                <td style="width:15%;">VH Comp</td>
+                <td style="width:15%;">VH WE</td>
+                <td style="width:25%;">Signature de l'intervenant</td>
+            </tr>
+
+
+            {% set  resultComp  = 0 %}
+            {% set  resultWe  = 0 %}
+
+            {% for item in listeHeureByWeeks %}
+                <tr>
+                    <td align="center">Semaine du
+                        {{ item.startWeek | date('d/m/Y') ~ '  -  '~ item.endWeekend | date('d/m/Y')}}</td>
+                    <td align="center">{{ item.heureHebdomadaire }}</td>
+                    <td align="center">{{ item.heureComplementaire }}</td>
+                    <td align="center">{{ item.heureweekend }}</td>
+                    <td></td>
+                </tr>
+                {% set  resultComp  = resultComp + item.heureComplementaire %}
+                {% set  resultWe  = resultWe + item.heureweekend %}
+            {% endfor %}
+            <tr>
+                <td class="align-left" colspan="2" style="padding-left:0.8cm;">Durée totale</td>
+                <td>
+                    {{resultComp}}</td>
+                <td>{{resultWe}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="align-left" colspan="2" style="padding-left:0.8cm;">Taux horaire brut</td>
+                <td>
+                    {{ matiere.tauxHoraireBrut}}/H</td>
+                <td>100 000/WE</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="align-left" colspan="2" style="padding-left:0.8cm;">Montant brut a payé</td>
+                {% set montantComp = matiere.tauxHoraireBrut * resultComp %}
+                {% set montantWe =  resultWe * 50000/7.5 %}
+                <td>{{ montantComp | number_format(0,'',' ')}}</td>
+                <td>{{ montantWe | number_format(0,'',' ')}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="align-left" colspan="2" style="padding-left:0.8cm;">Montant a payé</td>
+                <td colspan="2">
+                    {{ (montantComp + montantWe) | number_format(0,'',' ')}}</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="table-no-border">
+            <tr>
+                <td>Date. .…… / …… / 20....</td>
+                <td>Date. .…… / …… / 20....</td>
+                <td>Date. .…… / …… / 20....</td>
+            </tr>
+            <tr>
+                <td>Visa de l’Assistant de Prog.</td>
+                <td>Visa du Coordonnateur</td>
+                <td>Visa du Directeur</td>
+            </tr>
+        </table>
+
+    </body>
+</html>

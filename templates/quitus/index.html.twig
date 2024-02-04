@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\Quitus\style.css">
+    <title>Document</title>
+</head>
+
+<body>
+{% set trans_day_hash = {
+    "November": "Novembre",
+    "January": "Janvier",
+    "February": "Février",
+    "March": "Mars",
+    "April":"Avril",
+    "May": "Mai",
+    "June":"Juin",
+    "July":"Juillet",
+    "August": "Août",
+    "September":"Septembre",
+    "October":"Octobre",
+    "December":"Décembre"
+}
+%}
+{% set trans_day_hash1 = {
+    "Monday":"Lundi",
+    "Tuesday":"Mardi",
+    "Wednesday":"Mercredi",
+    "Thursday":"Jeudi",
+    "Friday":"Vendredi",
+    "Saturday":"Samedi",
+    "Sunday":"Dimanche"
+}
+%}
+{% set trans_dash_niv = {
+    1:"première",
+    2:"deuxième",
+    3:"troisième"
+}
+%}
+<header class="header">
+    <div class="logo">
+        <img src="{{ kernel }}\public\images\instituts\{{ etudiant.instituts[0].logo }}" alt="ISM icon">
+    </div>
+    <div class="orange-bar-left">
+
+    </div>
+    <div class="white-bar-left">
+
+    </div>
+
+    <div class="main-header">
+        <div class="top-bar">
+            <div class="orange-top">
+
+            </div>
+            <div class="brown-top">
+
+            </div>
+        </div>
+        <div class="informations">
+            <div class="student-details" >
+<br>
+                <div class="info">
+                    <p class="label">
+                        Niveau d'étude:
+                    </p>
+                    <p class="value">
+                        {{ classe.niveau.intitule }}
+                    </p>
+                </div>
+
+                <div class="info">
+                    <p class="label">
+                        Classe:
+                    </p>
+                    <p class="value">
+                        {{ classe.nomClasse }}
+                    </p>
+                </div>
+
+                <div class="bottom-info">
+                    <div class="info">
+                        <p class="label">
+                            Nom de l'étudiant:
+                        </p>
+                        <p class="value">
+                            {{ etudiant.prenom }} {{ etudiant.nom }}
+                        </p>
+                    </div>
+
+                    <div class="">
+                        <p> Né(e) le {{ etudiant.dateNaissance|date("d/m/Y")}} à {{ etudiant.villeNaissance }} ({{ etudiant.paysNaissance }})</p>
+                    </div>
+
+                    <div class="info">
+                        <p class="label">
+                            Matricule:
+                        </p>
+                        <p class="value">
+                            {{ etudiant.identifiant }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="metadata">
+                <p class="metadata-facture">
+                    Année scolaire:<span> {{ annee.libelle }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main">
+    <div class="title">
+        <h1 class="text-bold text-center impact">QUITUS</h1>
+        <div class="border-img">
+            <img src="{{ kernel }}\public\assets\images\border.png" alt="">
+        </div>
+    </div>
+    <div class="text-bold main-container d-flex-column">
+        <div class="d-flex-column">
+            <span class="text-z5 text-bold-weight impact">Situation des impayés de l'étudiant à la date du {{ "Now" | date('d/m/Y') }}</span>
+            <div class="d-flex-row-2">
+                <div class="d-flex-column">
+                    <div style="width:4cm">Montant total dû:</div>
+                    <div style="width:4cm">Montant déja versé:</div>
+                    <div style="width:4cm">Solde:</div>
+                </div>
+                <div class="d-flex-column">
+                    <div style="width:4cm">{{ soldeAdate | number_format(0,'',' ')}} XOF</div>
+                    <div style="width:4cm">{{ solde.soldePaiement | number_format(0,'',' ')}} XOF</div>
+                    <div style="width:4cm" class="text-bold-weight">{{ (solde.soldePaiement - soldeAdate ) | number_format(0,'',' ')}} XOF</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex-column">
+            <span class="text-z5 text-bold-weight impact">Situation du compte de l'élève sur l'année scolaire {{ annee.libelle }} </span>
+
+            <div class="d-flex-row-2">
+                <div class="d-flex-column">
+                    <div style="width:4cm">Montant total dû:</div>
+                    <div style="width:4cm">Montant déja versé:</div>
+                    <div style="width:4cm">Solde:</div>
+                </div>
+                <div class="d-flex-column">
+                    <div style="width:4cm">{{ solde.soldeEcheance | number_format(0,'',' ')}} XOF</div>
+                    <div style="width:4cm">{{ solde.soldePaiement | number_format(0,'',' ')}} XOF</div>
+                    <div style="width:4cm" class="text-bold-weight">{{ (solde.soldePaiement - solde.soldeEcheance) | number_format(0,'',' ')}} XOF</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="d-flex-column">
+    <div class="d-flex-column gap text-bold text-bold-weight impact text-right">
+     <span>{{ institut.ville }}</span>,
+        <span>
+            le {{ trans_day_hash1["Now" | date('l')]}} {{ "Now"|date('d')}} {{ trans_day_hash[ "Now"|date('F')]  }} {{ "Now" | date('Y') }}
+        </span>
+        <br>
+            <span>La Direction</span>
+    </div>
+    <div class="d-flex-column text-bold text-center">
+        <span>{{ institut.nom}}</span>  <br>
+        <span>{{ institut.adresse1 }} - BP {{ institut.codePostal }}</span>  <br>
+        <span>{{ institut.ville }}</span>  <br>
+        <span>Tél: {{ institut.telephone }}</span>  <br>
+        <span>Mail: {{institut.email}}</span>
+    </div>
+
+
+</footer>
+<div class="bar-container">
+    <div class="bar-left">
+
+    </div>
+    <div class="bar-right">
+
+    </div>
+</div>
+</body>
+
+</html>

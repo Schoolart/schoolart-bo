@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+            p {
+                color: #36271E;
+            }
+            .header{
+                 font-family: 'Montserrat Alternates';
+             }
+             table{
+                width: 100%;
+             }
+        </style>
+    </head>
+    <body class="header">
+        <header>
+          <table >
+<tr>
+    <td>Nom :
+        {{ etudiant.nom }}</td></tr>
+
+<tr>
+    <td>Prenom :
+        {{ etudiant.prenom }}</td>
+</tr>
+
+<tr>
+    <td colspan="2">Matricule :
+        {{ etudiant.identifiant }}</td>
+</tr>
+
+<tr>
+    <td>Classe :
+        {{ classe.nomClasse}}</td>
+</tr>
+
+         
+          </table>
+        </header>
+    </body>
+</html>

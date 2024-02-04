@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+            p {
+                color: ##36271E;
+            }
+            .header{
+                text-align:right;
+                margin-bottom:1rem;
+            }
+        </style>
+        <script>
+    /* page counter */
+    function subst() {
+      var vars={};
+      var x=document.location.search.substring(1).split('&');
+      for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+      var x=['topage','page'];
+      for (var i in x) {
+        var y = document.getElementsByClassName(x[i]);
+        for (var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+      }
+    }
+  </script>
+    </head>
+    <body class="header" onload="subst()">
+        <footer>
+        <p>Nom : {{ etudiant.nom }}</p>
+        <p>Prenom : {{ etudiant.prenom }}</p>
+        <p>Matricule : {{ etudiant.identifiant }}</p>
+        <p>Classe : {{ classe.nomClasse}}</p>
+        </footer>
+    </body>
+</html>

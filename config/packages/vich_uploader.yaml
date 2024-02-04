@@ -1,0 +1,32 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        user_avatar:
+            uri_prefix: /images/avatars
+            upload_destination: '%kernel.project_dir%/public/images/avatars'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        institut_logo:
+            uri_prefix: /images/instituts
+            upload_destination: '%kernel.project_dir%/public/images/instituts'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        bibliotheque_file:
+            uri_prefix: /files/bibliotheques
+            upload_destination: '%kernel.project_dir%/public/files/bibliotheques'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        soutenance_file:
+            uri_prefix: /files/soutenances
+            upload_destination: '%kernel.project_dir%/public/files/soutenances'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        bulletin_file:
+            uri_prefix: /files/bulletins
+            upload_destination: '%kernel.project_dir%/public/files/bulletins'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        attestation_file:
+            uri_prefix: /files/attestations
+            upload_destination: '%kernel.project_dir%/public/files/attestations'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        sanction_file:
+            uri_prefix: '/files/sanctions'
+            upload_destination: '%kernel.project_dir%/public/files/sanctions'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

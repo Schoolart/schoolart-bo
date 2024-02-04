@@ -1,0 +1,245 @@
+{% set trans_day_hash = {
+    "November": "Novembre",
+    "January": "Janvier",
+    "February": "Février",
+    "March": "Mars",
+    "April":"Avril",
+    "May": "Mai",
+    "June":"Juin",
+    "July":"Juillet",
+    "August": "Août",
+    "September":"Septembre",
+    "October":"Octobre",
+    "December":"Décembre"
+}
+%}
+{% set trans_day_hash1 = {
+    "Monday":"Lundi",
+    "Tuesday":"Mardi",
+    "Wednesday":"Mercredi",
+    "Thursday":"Jeudi",
+    "Friday":"Vendredi",
+    "Saturday":"Samedi",
+    "Sunday":"Dimanche"
+}
+%}
+{% set trans_dash_niv = {
+    1:"première",
+    2:"deuxième",
+    3:"troisième"
+}
+%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\DossierOrange\style.css">
+</head>
+<body>
+<div>
+  <div class="header-container">
+    <div class="block-orange" > </div>
+    <div class=""><img class="logo"  src="{{ kernel }}\public\images\instituts\{{ institut.logo }}" alt=""></div>
+  </div>
+  <div class="full-brown top-container">
+    <div>
+      <div>
+          <img  class="photo" src="{{ kernel }}\public\images\avatars\{{ etudiant.avatar }}" alt="">
+      </div>
+    </div>
+    <div class="text-top">
+      <p class="h"> Dossier etudiant </p>
+      <p style="margin-bottom:10px;">{{ institut.nom}} </p>
+      <p >/Année académique <span class="annee"> {{ annee.libelle }}</span></p>
+    </div>
+  </div>
+  <div class="body-container">
+    <div class="block">
+      <div class="title">
+        <div>INFORMATIONS PERSONNELLES</div>
+      </div>
+      <div class="title-details">
+        <table class="table-no-border">
+          <tr>
+            <td ><span class="bold">Nom(s) </span>: {{ etudiant.nom }} </td>
+            <td><span class="bold" >Prénom(s) </span>: {{ etudiant.prenom }} </td>
+          </tr>
+          <tr>
+            <td><span class="bold">Date de naissance </span>: {{ etudiant.dateNaissance | date ('d/m/Y') }}</td>
+            <td><span class="bold">Lieu de naissance </span>: {{ etudiant.villeNaissance }}</td>
+          </tr>
+           <tr>
+            <td><span class="bold">Sexe </span>: {{ etudiant.sexe }}</td>
+            <td><span class="bold">Adresse </span>: {{ etudiant.adresse1 }}</td>
+           </tr>
+           <tr>
+             <td><span class="bold">Nationalité </span>: {{ etudiant.nationalite }}</td>
+             <td><span class="bold">Pays de résidence</span> : {{ etudiant.paysResidence }}</td>
+           </tr>
+           <tr><td><span class="bold">Numero CNI / Passeport</span> : {{ (etudiant.numCni ? etudiant.numCni :'') ~ (etudiant.numPasseport ? ' / ' ~ etudiant.numPasseport:'' ) }}</td>
+           <td><span class="bold">Téléphone</span> : {{ etudiant.telephonePortable }}</td>
+           </tr>
+             <tr>
+            <td colspan="2"><span class="bold">Email professionnel</span></span> : {{ etudiant.emailPrincipale }}</td>  </tr>
+            <tr>
+            <td colspan="2"><span class="bold">Email personnel </span>: {{ etudiant.emailSecondaire }}</td>
+           </tr>
+           {% if etudiant.boursier %}
+             <tr>
+               <td><span class="bold">Statut Boursier </span>: OUI</td>
+               <td><span class="bold">Sponsors </span>: {{etudiant.bourse.originBourse }}</td>
+             </tr>
+              <tr>
+              <td colspan="2">
+                  <span class="bold">Exemption FS / DI
+                  </span>:
+                    {{ (etudiant.exemptDroitsInscriptions ? 'OUI' :'NON') ~ ' / ' ~ (etudiant.exemptFraisScolarite ? 'OUI':'NON')  }}</td>
+            </tr>
+           {% else %}
+               <tr><td colspan="2"><span class="bold">Statut Boursier </span>: NON</td></tr>
+           {% endif %}
+        </table>
+      </div>
+    </div>
+  <div class="break"></div>
+    <div class="block">
+      <div class="title">
+        <div>INFORMATIONS ACADEMIQUES</div>
+      </div>
+      <div class="title-details">
+      <table class="table-no-border">
+        <tr><td colspan="2"><span class="bold">Grade </span>: {{ classe.specialisation.mention.domaine.grade.intitule}} </td></tr>
+        <tr><td colspan="2"><span class="bold">Domaine de formation suivie </span>: {{ classe.specialisation.mention.domaine.intitule}}</td></tr>
+        <tr><td colspan="2"><span class="bold">Mention </span>: {{ classe.specialisation.mention.intitule}}</td></tr>
+        <tr><td colspan="2"><span class="bold">Spécialité </span>: {{ classe.specialisation.intitule}}</td></tr>
+        <tr>
+            <td colspan="2"><span class="bold">Niveau d'étude </span>:
+                {{ classe.niveau.intitule}}</td>
+        </tr>
+      {% if etudiant.redoublant %}
+        <tr>
+          <td colspan="2"><span class="bold">Classe Redoublée </span>: {{etudiant.classeRedoublee}}</td>
+      </tr>
+      {% endif %}
+      <tr>
+          <td colspan="2">
+                  <span class="bold">Sanction administrative durant le cours </span>:
+                  {{ (sanctions | length ) > 0 ? '' : 'Aucune' }}
+            {% for item in sanctions %}
+                {% if item.typeSanction %}
+                    {{item.typeSanction.libelle }}
+                {% endif %}
+            {% endfor %}
+          </td>
+      </tr>
+      </table>
+      </div>
+    </div>
+    <div class="break"></div>
+    <div class="block">
+      <div class="title">
+        <div>PARCOURS DE L'ETUDIANT</div>
+      </div>
+       <div class="title-table">
+          <table class="table">
+              <tr>
+                <th>Niveau</th>
+                <th>Période</th>
+                <th>Moyenne</th>
+                <th>Assiduité</th>
+                <th>Crédits capitalisés</th>
+                <th>Rang</th>
+              </tr>
+              {% for  parcour in parcours %}
+              <tr>
+                <td>{{ parcour.classe.niveau.intitule}}</td>
+                <td>{{ parcour.periode.libelle}}</td>
+                <td>{{ parcour.moyenne | number_format(2,'.',',') }}</td>
+                <td>{{ parcour.assiduite | number_format(2,'.',',') }}</td>
+                <td>{{ parcour.creditCapitalise }}</td>
+                <td>{{ parcour.Rang }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                  <td colspan="6">Vide</td>
+              </tr>
+              {% endfor %}
+              {% if (parcours|length)!= 0 %}
+              <tr>
+                <td colspan="2">Total</td>
+                <td>{{ total[0] | number_format(2,'.',',')}}</td>
+                <td></td>
+                <td>{{ total[1] }}</td>
+                <td></td>
+               </tr>
+              {% endif %}
+          </table>
+        </div>
+  </div>
+  <div class="break"></div>
+    <div class="block">
+      <div class="title">
+        <div>INFORMATIONS FINANCIERES</div>
+      </div>
+      <div class="title-table">
+          <table class="table">
+            <tr>
+              <th>Date</th>
+              <th>Montant</th>
+              <th>Mode de paiement</th>
+              <th>Canal</th>
+              <th>Libelle de paiement</th>
+            </tr>
+            {% for  paiement in paiements %}
+            <tr>
+              <td>{{ paiement.date | date ('d/m/y')}}</td>
+              <td>{{ paiement.montant | number_format(0,'.',',') }}</td>
+              <td>{{ paiement.modePaiement}}</td>
+              <td>{{ paiement.canal }}</td>
+              <td>{{ paiement.libelle}}</td>
+            </tr>
+            {% else %}
+              <tr>
+                  <td colspan="5">Vide</td>
+              </tr>
+            {% endfor %}
+          </table>
+      </div>
+      <div class="title-table">
+          <table class="table">
+            <tr>
+              <th>Année Académique</th>
+              <th>Solde</th>
+              <th>Solde des échéances</th>
+              <th>Solde des paiements</th>
+            </tr>
+            {% for  solde in soldes %}
+            <tr>
+              <td>{{ solde.anneeAcademic.libelle}}</td>
+              <td>{{ solde.solde}}</td>
+              <td>{{ solde.soldeEcheance | number_format(0,'.',',')}}</td>
+              <td>{{ solde.soldePaiement | number_format(0,'.',',') }}</td>
+            </tr>
+            {% else %}
+              <tr>
+                  <td colspan="4">Vide</td>
+              </tr>
+            {% endfor %}
+          </table>
+      </div>
+    </div>
+  <div class="break"></div>
+    <div class="block">
+      <div class="title">
+        <div>ANNEXES</div>
+      </div>
+      <div class="title-annexe">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

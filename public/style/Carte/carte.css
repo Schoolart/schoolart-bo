@@ -1,0 +1,258 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --clr-main-bg: #38271E;
+    --clr-secondary: #F5770E;
+    --clr-tertiary: #FFA437;
+    --clr-grey: #9f9fa2;
+    --fs-large: 0.45cm;
+    --fs-slarge: 0.35cm;
+    --fs-md-sup: 0.3cm;
+    --fs-md: 0.25cm;
+    --fs-sm: 0.2cm;
+    --fs-s: 0.15cm;
+}
+.bold{
+    font-weight:bold;
+}
+body {
+    font-family:  Arial, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}
+.second-card{
+    transform: rotate(180deg);
+}
+img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.card {
+    width: 11.79cm;
+    height: 7.44cm;
+    padding: 0.08cm;
+}
+
+.gray-bg {
+    background-color: var(--clr-secondary);
+}
+
+.secondary-bg {
+    background-color: var(--clr-secondary);
+}
+
+.divider {
+    height: 1cm;
+}
+
+.inner-card {
+    border-radius: 0.2cm;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(45deg, var(--clr-main-bg) 68%, var(--clr-secondary) 68%, var(--clr-secondary) 80%, var(--clr-tertiary) 80%);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 0.3cm;
+    padding-block: 0.2cm;
+
+}
+
+.logo {
+    width: 1.5cm;
+    height: 1.5cm;
+
+}
+
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    gap: 0.3cm;
+    margin-top: 0.1cm;
+    margin-left: 0.2cm;
+
+}
+
+.main-info {
+    color: var(--clr-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1cm;
+    width: 6cm;
+
+
+}
+
+.main-details {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    flex: 1;
+    gap: 0.05cm;
+    font-size: var(--fs-slarge);
+    width: 6cm;
+//Background-color:red;
+}
+
+.font-lg {
+    font-size: var(--fs-large);
+}
+
+.etablissement {
+    margin-bottom: 0.55cm;
+
+}
+
+.footer {
+    color: var(--clr-secondary);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:3.8cm;
+    position: absolute;
+    bottom:0.2cm ;
+    font-weight:bold;
+//margin-right:-0.5cm;
+
+}
+
+.font-md {
+    font-size: var(--fs-md);
+}
+.font-md-sup {
+    font-size: var(--fs-md-sup);
+}
+.font-sm {
+    font-size: var(--fs-sm);
+}
+.font-s{
+    font-size: var(--fs-s);
+}
+.font-slg {
+    font-size: var(--fs-slarge);
+}
+
+.student-photo {
+    position: absolute;
+    padding: 0.1cm;
+    width: 3.4cm;
+    height: 4.5cm;
+    background: linear-gradient(45deg, var(--clr-secondary) 45%, var(--clr-grey) 45%, var(--clr-grey) 55%, var(--clr-main-bg) 55%);
+    border-radius: 0.1cm;
+    right: 0.3cm;
+    bottom: 1.5cm;
+
+}
+
+.photo {
+    background-color: white;
+    width:100%;
+    height:100%;
+}
+
+.annee-academique {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    top: 0.2cm;
+    right: 0.5cm;
+    color: var(--clr-main-bg);
+
+}
+
+
+/* Back card */
+
+.back-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.2cm;
+    height: 100%;
+    width: 100%;
+    gap: 0.4cm;
+    background-color: #fff;
+}
+
+.qr-code {
+    width: 2cm;
+    height: 2cm;
+//  border: 0.15cm  solid black;
+    margin-top: 0.25cm;
+}
+
+.back-card__top {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4cm;
+    margin-left: 0.1cm;
+
+}
+
+
+
+.box {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+//font-size: var(--fs-md);
+
+}
+
+.di-box {
+    border: 0.07cm solid black ;
+    width: 1.95cm;
+    height: 1.95cm;
+}
+
+.back-card__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4cm;
+    margin-left: 0.15cm;
+    margin-bottom: 0.2cm;
+}
+
+.versement-box {
+    width: 1.95cm;
+    height: 1.95cm;
+    border: 0.07cm solid var(--clr-secondary);
+    color: var(--clr-secondary);
+}
+
+.top-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:0.2cm;
+    color: var(--clr-secondary);
+    margin-top:0.1cm;
+}
+.tel{
+    display: flex;
+    width: 6cm;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    bottom: 0.2cm;
+    right: 1cm;
+    color: var(--clr-secondary);
+}
+.naiss{
+    margin-top: 0.1cm;
+    margin-bottom:0.1cm;
+}
+.left{
+    height: 100%;
+}

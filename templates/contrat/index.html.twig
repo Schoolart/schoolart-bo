@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\Contrat\style.css">
+</head>
+<body>
+<div class="card text-center bold">
+    <h2>CONTRAT DE VACATION</h2>
+    <h2>Numéro : {{ fiche.numeroContrat }}</h2>
+    <div style="background: #1b1b1b;height: 0.2cm; width: 100%; margin-top: 0.2cm"></div>
+</div>
+<br>
+<p>Entre, </p>
+<p><b>{{ fiche.professeur.titre }}. {{ fiche.professeur.nom }} {{ fiche.professeur.prenom }}</b> </p>
+<p><b>Né (é) le: {{ fiche.professeur.dateNaissance | date('d/m/Y')}} À {{fiche.professeur.villeNaissance }} {{fiche.professeur.paysNaissance}} </b></p>
+<p><b>Adresse: {{ fiche.professeur.adresse1 }}</b></p>
+<p><b>{{ fiche.professeur.piece }} : {{fiche.professeur.numeroPiece}}</b></p>
+<p><b>Numéro de téléphone : {{fiche.professeur.telephonePortable}}</b>
+</p>
+<p>
+    <b>Numéro de compte bancaire : {{ fiche.professeur.numeroCompletCompteBancaire }}</b></p>
+<p>Ci-après dénommé le « Vacataire »,</p><br>
+<p>D’une part, </p>
+<p>Et</p>
+<p>CAMPUS SAS, société de gestion de l’ISM ayant son siège social au Point E, Rue 2, Dakar ; ci-après dénommée « Campus » représentée par Monsieur Abdou DIOUF, agissant en sa qualité de Directeur de CAMPUS SAS,</p>
+<p>d’autre part, </p>
+<br>
+<p>il est convenu et arrêté les dispositions du présent contrat qui régiront les relations entre les deux cosignataires sous les conditions générales et particulières suivantes : </p>
+<H2><span class="bold"><u>ARTICLE 1</u></span>: Objet du contrat  </h2>
+<p>Il est confié au vacataire la mission d’enseignement dans le(s) module(s) suivants :</p>
+<table>
+    <tr>
+        <th>Module</th>
+        <th>Période (de .. à ...)</th>
+        <th>Volume horaire</th>
+        <th>Taux horaire</th>
+    </tr>
+    {% for matiere in fiche.matieres %}
+    <tr>
+        <td>{{ matiere.matiereSup.intituleFr }}</td>
+        <td>{{ fiche.dateDemarrageCours | date('d/m/Y')  }} à {{ fiche.dateFinCours | date('d/m/Y') }}</td>
+        <td>{{ matiere.vhe + matiere.tpe }}</td>
+        <td>{{ fiche.tauxHoraireBrut }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<div class="page-break"></div>
+<p>Ce(s) enseignement(s) se fera (feront) sous forme de cours magistral, Travaux Dirigés (TD) et travaux Pratiques (TP) dans les programmes de l’ {{ fiche.institut.nom }} du Groupe ISM.</p>
+<p>Le détail des principales responsabilités, missions et obligations du Vacataire est précisé dans le « Guide de l’Intervenant Externe » joint au présent. </p>
+<p>Le vacataire a pris connaissance de la nature de ces services et déclare posséder les aptitudes professionnelles requises pour leur bonne exécution conformément aux prescriptions du « Guide de l’Intervenant Externe ».</p>
+<br>
+<h2>
+    <span class="bold"><u>ARTICLE 2</u></span>: Durée du contrat
+</h2>
+<p>Le présent contrat prend effet du {{ fiche.dateDemarrageCours | date('d/m/Y')}} au {{ fiche.dateFinCours | date('d/m/Y')}} et prend fin dans les trois semaines qui suivent la remise des copies et notes d’évaluation et/ou d’examen par le vacataire. </p>
+<h2>
+    <span class="bold"><u>ARTICLE 3</u></span> : Lieu d’exécution du contrat
+</h2>
+<p>Le vacataire interviendra principalement à Dakar en présentiel et/ou en ligne.</p>
+<h2>
+    <span class="bold"><u>ARTICLE 4</u></span> : Obligations du vacataire
+</h2>
+<p>Le vacataire s’engage à respecter scrupuleusement les dispositions contenues dans le « Guide de l’Intervenant Externe » qui lui a été remis par le Directeur des Programmes de l’ {{ fiche.institut.nom}}</p>
+<h2>
+    <span class="bold"><u>ARTICLE 5</u></span> : <span>Obligations de Campus </span>
+</h2>
+<p>5.1- Campus s’engage à verser au vacataire en contrepartie de sa prestation, des honoraires bruts calculés sur la base du taux horaire en vigueur. Ce taux horaire tel que définis à l’article 1 est TTC (toutes taxes comprises).</p>
+<p>Les honoraires nets de la retenue légale de<b>5%</b> sur les prestations de service seront payés tous les 15 de chaque mois pour le compte des heures effectuées le mois précédent. </p>
+<ul class="list-disc list-inside" style="margin-left:2cm">
+    <li>Paiement de <b>80% </b>des honoraires du volume horaire mensuel exécuté et consigné dans la fiche de décompte ; </li>
+    <li>Paiement de la somme des <b>20% </b>retenus sur les fiches de décomptes horaires après la fin du semestre et la remise, des notes d’évaluation, des épreuves et des corrigés des épreuves d’examen et des notes des deux sessions du semestre académique de prestation.</li>
+</ul>
+<p>Pour tout paiement d’honoraires, le vacataire devra s’assurer que :</p>
+<ul class="list-disc list-inside  ">
+    <li>le cours a été exécuté dans sa globalité et pour le contenu proposé et validé dans le syllabus avec les autorités pédagogiques de l’établissement;</li>
+    <div class="page-break"></div>
+    <li>les étudiants ont été évalué en Contrôle Continu et en Examen et les notes transmises aux autorités désignées de l’établissement dans un délai maximum d’une semaine après la tenue de l’évaluation ou de l’examen;</li>
+    <li>un sujet de remplacement a été mis à la disposition de l’administration pour les étudiants qui ont droit à une session de rattrapage et qu’une fois la session tenue, les copies sont corrigées et remises aux autorités de l’établissement selon les mêmes conditions et les mêmes délais que pour l’examen de session normale.</li>
+</ul>
+<p>Le paiement des honoraires se fera exclusivement par virement bancaire dans votre compte domicilié à {{ fiche.professeur.nomBanque}} référencé ci-dessous et conformément au Relevé d’Identité Bancaire joint à ce contrat</p>
+<p>5.2- Campus s’engage également à respecter scrupuleusement ses autres engagements contenus dans le « Guide de l’Intervenant Externe » en ce qui concerne notamment les aspects d’ordre pédagogique et d’ordre éthique. </p>
+
+<h2>
+    <span class="bold"><u>ARTICLE 6</u></span> : Clause de propriété
+</h2>
+<p>Tous rapports, études et autres documents issus de travaux commandités par Campus et produits par le vacataire au cours de l’exécution de ses missions deviendront et demeureront la propriété exclusive de Campus.</p>
+<h2>
+    <span class="bold"><u>ARTICLE 7</u></span> : Cessation du contrat
+</h2>
+<p>La cessation du présent contrat peut résulter de la volonté unilatérale de l’une des parties en cas de non respect des dispositions contenues dans le « Guide de l’Intervenant Externe ». </p>
+<p>En cas de cessation du présent contrat pour quelque motif que ce soit, résultant ou non de la volonté des parties aux présentes, le Vacataire est tenu de remettre à Campus ou à ses mandataires et à première réquisition, toutes choses et pièces qui lui auraient été confiées dans le cadre de ses prestations.</p>
+<h2>
+    <span class="bold"><u>ARTICLE 8</u></span> : Force obligatoire
+</h2>
+<p>Le Prestataire s’engage volontairement et de plein gré aux dispositions du présent contrat et des conditions ci-dessus qui ont force de loi entre les parties.</p>
+<h2>
+    <span class="bold"><u>ARTICLE 9</u></span> : toute contestation dans l'exécution du présent contrat sans possibilité d'accord sera soumise aux juridictions compétentes selon les règles du droit sénégalais et dans son interprétation.
+</h2>
+<div class="page-break"></div>
+<p class="text-right bold">Fait à Dakar le {{ dateNow }}</p><br><br>
+<div class="footer bold">
+    <div class="left">
+        <div><u>LE VACATAIRE</u></div>
+        <div>Signature précédée de la mention</div>
+        <div>"Lu et approuvé"</div>
+    </div>
+    <div class="right">
+        <div>Pour Campus SAS,</div>
+        <div>Le Directeur Général du Groupe ISM</div>
+        <div>Abdou DIOUF</div>
+    </div>
+</div>
+<br>
+    <br>
+        <br>
+            <br>
+            <br>
+        <br>
+            <br>
+
+<p class="text-right bold">Le Directeur de l' {{ fiche.institut.nom}}  </p>
+
+</body>
+</html>

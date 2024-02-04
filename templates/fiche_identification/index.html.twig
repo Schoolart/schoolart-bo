@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\Fiche\style.css">
+</head>
+<body>
+<table class="table1">
+    <tr class="full-text-brown">
+        <td rowspan="2" class="full-orange ">
+            <div class="logo"><img src="{{ kernel }}\public\images\instituts\{{ fiche.institut.logo}}" alt="ISM icon"></div>
+            <div class="text-logo">
+                <div>Fiche D’Identification de l’intervenant</div>
+                <div>Contrat Numéro : {{fiche.numeroContrat}}</div>
+            </div>
+        </td>
+        <td> Réf : PRO1 </td>
+
+        <td rowspan="2" class="full-orange " >Modif : Création </td>
+
+        <td>Date : {{ dateNow }} </td>
+    </tr>
+    <tr class="full-text-brown">
+        <td>Version N°:01</td>
+        <td>Page : 1/1 </td>
+    </tr>
+</table>
+
+<div class="fs-slg mt-5">NB : Les informations consignées dans ce document serviront à l’établissement du contrat vous liant à l’ISM. Nous vous assurons qu’elles seront traitées avec la plus grande confidentialité.</div>
+
+<table class="table2 mt-5">
+    <tr><td class="text-center full-orange" >Réservée à l’Administration</td></tr>
+    <tr>
+        <td>
+            Cycle intervention: {{ fiche.cycleIntervention }}
+            <hr>
+        </td>
+    </tr>
+    <tr>
+        <td>Préciser les classes et le programme : {% for classe in fiche.classes %} {{ classe.nomClasse }} {% if fiche.classes.indexOf(classe) < (fiche.classes.count-1) %} ; {% endif%} {% endfor %}</td>
+    </tr>
+    <tr>
+        <td>Matières : {% for matiere in fiche.matieres %} {{ matiere.matiereSup.intituleFr }} ({{matiere.vhe + matiere.tpe }}) {% if fiche.matieres.indexOf(matiere) < (fiche.matieres.count-1) %} ; {% endif%} {% endfor %} </td>
+    </tr>
+    <tr>
+        <td>Date de démarrage du cours : {{ fiche.dateDemarrageCours |  date('d/m/Y')}}</td>
+    </tr>
+    <tr>
+        <td>Date de fin du module : {{ fiche.dateFinCours |  date('d/m/Y') }}</td>
+    </tr>
+    <tr>
+        <td> Volume horaire hebdomadaire : {{ fiche.vhhebdo}} H</td>
+    </tr>
+    <tr>
+        <td> Taux horaire brut : {{ fiche.tauxHoraireBrut }}</td>
+    </tr>
+</table>
+<table class="table2 mt-5">
+    <tr><td class="text-center full-orange" >Partie réservée à l’intervenant</td></tr>
+    <tr>
+        <td >
+            Identification : {{ fiche.professeur.titre }}.
+            {{ fiche.professeur.prenom }} / {{ fiche.professeur.nom }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if fiche.professeur.titre =="M" %} Né {% else %} Née {% endif%} le: {{ fiche.professeur.dateNaissance | date('d/m/Y')}} À {{fiche.professeur.villeNaissance }} {{fiche.professeur.paysNaissance}}
+        </td>
+    </tr>
+    <tr>
+        <td>Adresse Complète : {{ fiche.professeur.adresse1  }} {{ fiche.professeur.villeResidence }} {{ fiche.professeur.paysResidence }}</td>
+    </tr>
+    <tr>
+        <td>N° Tél : {{ fiche.professeur.telephonePortable }} / Mail : {{ fiche.professeur.emailPrincipale }}</td>
+    </tr>
+    <tr>
+        <td>Personne à contacter en cas d’urgence : {{ fiche.professeur.personneUrgence }}</td>
+    </tr>
+    <tr>
+        <td>
+      Pièce d'identification : {{ fiche.professeur.piece }}
+        </td>
+    </tr>
+    <tr>
+        <td>Numéro complet du compte bancaire : {{ fiche.professeur.numeroCompletCompteBancaire }}</td>
+    </tr>
+    <tr>
+        <td>Nom Banque : {{ fiche.professeur.nomBanque }}   Code Banque : {{fiche.professeur.codeBanque}} Code Guichet :
+            {{ fiche.professeur.codeGuichet }}   </td>
+    </tr>
+    <tr>
+        <td>N° Compte : {{ fiche.professeur.numeroCompte}}      RIB : {{ fiche.professeur.rib}}   </td>
+    </tr>
+    <tr>
+        <td>Dakar, le : {{dateNow}}       Signature :</td>
+    </tr>
+    <tr>
+        <td class="fs-slg">NB : Le formulaire peut être renseigné en ligne et renvoyé par mail. La signature se fera sur place auprès de l’autorité compétente et avant mise à disposition du contrat.</td>
+    </tr>
+</table>
+
+</body>
+</html>

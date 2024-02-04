@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\Programme\style.css">
+</head>
+<body>
+<table>
+    <tr>
+        <td colspan="4" class="full-orange fs-lg">
+            <div class="logo"><img src="{{ kernel }}\public\images\instituts\{{ classe.niveau.anneeAcademic.institut.logo}}" alt="ISM icon"></div>
+            <div >Programme des Enseignements</div> </td>
+        <td colspan="3"> <br> Date : 01/07/19 <br><br> Page:5/6 <br><br></td>
+    </tr>
+    <tr>
+        <td colspan="7"> DOMAINE : {{ classe.specialisation.mention.domaine.intitule}} </td>
+    </tr>
+    <tr>
+        <td colspan="7"> MENTION : {{ classe.specialisation.mention.intitule }} </td>
+    </tr>
+    <tr>
+        <td colspan="7"> SPECIALITE: {{ classe.specialisation.intitule }} </td>
+    </tr>
+    <tr class="full-brown">
+        <td colspan="2" class="left-text">{{ periode.semestre.intitule | upper}}</td>
+        <td colspan="4">CHARGE DE TRAVAIL</td>
+        <td rowspan="2">CREDITS</td>
+    </tr>
+    <tr class="full-brown">
+        <td>CODE UE</td>
+        <td class="s-lg">ELEMENTS CONSTITUTIFS</td>
+        <td>VHE</td>
+        <td>TPE</td>
+        <td>VHT</td>
+        <td>COEF EC</td>
+    </tr>
+    {% set resultVheT = 0 %}
+    {% set resultTpeT = 0 %}
+    {% set resultCoefT = 0 %}
+    {% set resultVhtT = 0 %}
+    {% set resultCreditT = 0 %}
+    {% set nb = 1 %}
+    {% for  ue in ues %}
+
+    <tr class="full-orange" >
+        <td colspan="7" class="left-text"> UE {{ nb }} : {{ ue.ueSup.intituleFr |upper }}   </td>
+    </tr>
+        {% set resultVhe = 0 %}
+        {% set resultTpe = 0 %}
+        {% set resultCoef = 0 %}
+        {% set resultVht = 0 %}
+        {% set resultCredit = 0 %}
+    <tr>
+        {% set resultVhe = resultVhe + ue.matieres[0].vhe %}
+        {% set resultTpe = resultTpe + ue.matieres[0].vhe %}
+        {% set resultCoef = resultCoef + ue.matieres[0].coefficients %}
+        {% set resultVht = resultVht + ue.matieres[0].vhe + ue.matieres[0].vhe %}
+        {% set resultCredit = resultCredit + ue.matieres[0].credits %}
+
+        <td rowspan="{{ ue.matieres | length }}" >{{ ue.codeUe }}</td>
+        <td>{{ ue.matieres[0].matiereSup.intituleFr }}</td>
+        <td>{{ ue.matieres[0].vhe }}</td>
+        <td>{{ ue.matieres[0].vhe }}</td>
+        <td>{{ ue.matieres[0].vhe + ue.matieres[0].vhe }}</td>
+        <td>{{ ue.matieres[0].coefficients }}</td>
+        <td>{{ ue.matieres[0].credits }}</td>
+    </tr>
+
+    {% for  matiere in  ue.matieres[1:] %}
+    <tr>
+        {% set resultVhe = resultVhe + matiere.vhe %}
+        {% set resultTpe = resultTpe + matiere.vhe %}
+        {% set resultCoef = resultCoef + matiere.coefficients %}
+        {% set resultVht = resultVht + matiere.vhe + matiere.vhe %}
+        {% set resultCredit = resultCredit + matiere.credits %}
+        <td>{{ matiere.matiereSup.intituleFr }}</td>
+        <td>{{ matiere.vhe }}</td>
+        <td>{{ matiere.vhe }}</td>
+        <td>{{ matiere.vhe + matiere.vhe }}</td>
+        <td>{{ matiere.coefficients }}</td>
+        <td>{{ matiere.credits }}</td>
+    </tr>
+    {% endfor %}
+        {% set resultVheT = resultVheT + resultVhe %}
+        {% set resultTpeT = resultTpeT + resultTpe %}
+        {% set resultCoefT = resultCoefT + resultCoef %}
+        {% set resultVhtT = resultVhtT + resultVht %}
+        {% set resultCreditT = resultCreditT + resultCredit %}
+    <tr class="full-brown">
+        <td colspan="2" class="left-text">SOUS TOTAL UE {{ nb }}</td>
+        <td>{{ resultVhe }}</td>
+        <td>{{ resultTpe }}</td>
+        <td>{{ resultVht }}</td>
+        <td>{{ resultCoef }}</td>
+        <td>{{ resultCredit }}</td>
+    </tr>
+        {% set nb = nb+1 %}
+    {% endfor %}
+    <tr class="full-brown">
+        <td colspan="2" class=" left-text">TOTAL ENSEIGNEMENTS PROPOSES {{ periode.semestre.intitule | upper }}</td>
+        <td>{{ resultVheT }}</td>
+        <td>{{ resultTpeT }}</td>
+        <td>{{ resultVhtT }}</td>
+        <td>{{ resultCoefT }}</td>
+        <td>{{ resultCreditT }}</td>
+    </tr>
+    <tr>
+        <td colspan="7">CM: Cours Magistral   -   TD: Travaux Dirigés    -  TP: Travaux Pratiques  -  COEF EC: Coefficient Elément Constitutif - TPE: Travail Personnel Etudiant - VHT: Volume Horaire Total    </td>
+    </tr>
+    <tr>
+        <td colspan="7">Ce document n'est pas contractuel, des ajustements éventuels pourront à tout moment y être apporté pour le bon déroulement de l'année académique en cours  </td>
+    </tr>
+</table>
+
+<br><br>
+
+
+</body>
+</html>

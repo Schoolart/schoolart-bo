@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\Recu\style.css">
+    <title>Document</title>
+</head>
+
+<body>
+{% set trans_day_hash = {
+    "November": "Novembre",
+    "January": "Janvier",
+    "February": "Février",
+    "March": "Mars",
+    "April":"Avril",
+    "May": "Mai",
+    "June":"Juin",
+    "July":"Juillet",
+    "August": "Août",
+    "September":"Septembre",
+    "October":"Octobre",
+    "December":"Décembre"
+}
+%}
+{% set trans_day_hash1 = {
+    "Monday":"Lundi",
+    "Tuesday":"Mardi",
+    "Wednesday":"Mercredi",
+    "Thursday":"Jeudi",
+    "Friday":"Vendredi",
+    "Saturday":"Samedi",
+    "Sunday":"Dimanche"
+}
+%}
+{% set trans_dash_niv = {
+    1:"première",
+    2:"deuxième",
+    3:"troisième"
+}
+%}
+<header class="header">
+    <div class="logo">
+        <img src="{{ kernel }}\public\images\instituts\{{ paiement.etudiant.instituts[0].logo }}" alt="ISM icon">
+    </div>
+    <div class="orange-bar-left">
+
+    </div>
+    <div class="white-bar-left">
+
+    </div>
+
+    <div class="main-header">
+        <div class="top-bar">
+            <div class="orange-top">
+
+            </div>
+            <div class="brown-top">
+
+            </div>
+        </div>
+        <div class="informations">
+            <div class="student-details impact" >
+
+
+                <div class="bottom-info">
+
+                    <div class="info">
+                        {{ " Reçu N° " ~ paiement.code }}
+                        <br>
+                        {{ paiement.institut.nom }}
+                    </div>
+                </div>
+            </div>
+            <div class="metadata">
+                <p class="metadata-facture">
+                    Année scolaire:<span> {{ paiement.anneeAcademic.libelle }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main">
+    <div class="title">
+
+    </div>
+    <div class="text-bold main-container d-flex-column">
+        <div class="d-flex-column">
+            <div class="d-flex-row-2">
+                <div class="d-flex-column impact">
+                    <div style="width:4cm">Reçu de</div>
+                    <div style="width:4cm">Matricule</div>
+                    <div style="width:4cm">Identifant de paiement</div>
+                    <div style="width:4cm">Cycle / Classe</div>
+                    <div style="width:4cm">Objet:</div>
+                    <div style="width:4cm">Montant:</div>
+                    <div style="width:4cm">Mode de règlement:</div>
+                    <div style="width:4cm">Date:</div>
+                </div>
+                <div class="d-flex-column">
+                    <div style="width:6cm">{{ paiement.etudiant.prenom }} {{ paiement.etudiant.nom }}</div>
+                    <div style="width:6cm">{{ paiement.etudiant.identifiant }}</div>
+                    <div style="width:6cm">{{ paiement.etudiant.identifiantPaiement }}</div>
+                    <div style="width:6cm">{{ paiement.classe.niveau.intitule }} / {{ paiement.classe.nomClasse }}</div>
+                    <div style="width:6cm">{{ paiement.libelle}}</div>
+                    <div style="width:6cm">{{ paiement.montant | number_format(0,'',' ')}} XOF</div>
+                    <div style="width:6cm" class="text-bold-weight">{{ paiement.modePaiement }}</div>
+                    <div style="width:6cm" class="text-bold-weight">{{ paiement.date | date('d/m/Y') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="d-flex-column">
+    <div class="d-flex-column gap text-bold text-bold-weight impact text-right">
+        <span>
+            le caissier
+        </span>
+        <br>
+        <span>{{ paiement.userCreate.prenom }} {{ paiement.userCreate.nom }}</span>
+    </div>
+    <div class="d-flex-column text-bold text-center">
+        <span>{{ paiement.institut.nom}}</span>  <br>
+        <span>{{ paiement.institut.adresse1 }} - BP {{ paiement.institut.codePostal }}</span>  <br>
+        <span>{{ paiement.institut.ville }}</span>  <br>
+        <span>Tél: {{paiement.institut.telephone }}</span>  <br>
+        <span>Mail: {{paiement.institut.email}}</span>
+    </div>
+
+
+</footer>
+<div class="bar-container">
+    <div class="bar-left">
+
+    </div>
+    <div class="bar-right">
+
+    </div>
+</div>
+</body>
+
+</html>

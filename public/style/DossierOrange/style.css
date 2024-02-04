@@ -1,0 +1,151 @@
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat Alternates';
+    font-size:16pt;
+}
+.table{
+  font-size: 13pt;
+  border: 1px solid #F7941E;
+  font-weight: bold;
+  border-collapse: collapse;
+  width: 100%;
+
+}
+.h{
+  font-family: DAMN;
+  font-size:60pt;
+}
+.table tr td,th{
+    border: 1px solid #F7941E;
+    text-align: center;
+    width: auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.table tr th{
+    background-color: #36271E !important;
+    color:#fff;
+}
+img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.page-break {
+    page-break-before: always;
+}
+
+.parcour-detail{
+    margin-bottom:1cm;
+}
+.full-brown {
+    background-color: #36271E !important;
+    color: #fff;
+}
+.full-orange{
+    background-color: #F7941E !important;
+    color: #fff;
+}
+.top-container{
+  height:6.5cm;
+  padding:1cm;
+  display:flex;
+  display:-webkit-box;
+  -webkit-box-pack: justify;
+  justify-content:space-between;
+
+}
+.annee{
+  background-color:#fff;
+  padding:0.3rem;
+  color:black;
+}
+.photo{
+  height:6cm;
+  width:5cm;
+  margin-top:-7rem;
+}
+.text-top{
+  text-align:right;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  display:-webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  height:2.5cm;
+  width:2.5cm;
+
+}
+.header-container{
+  background-color:#fff;
+  padding-right:1cm;
+  display:flex;
+  display:-webkit-box;
+  -webkit-box-align: start;
+  -webkit-box-pack: justify;
+  justify-content:space-between;
+  align-items:start;
+  height:3cm;
+}
+.block-orange{
+  background-color:#F7941E;
+  height:1cm;
+  width:1cm;
+}
+.body-container{
+  padding:1cm;
+}
+.block{
+  margin-bottom:4rem;
+}
+.title{
+  background-color:#F7941E;
+  width:100%;
+  padding:0.5cm;
+  color:#fff;
+  text-align:center;
+  margin-bottom:1.3rem;
+  font-weight:bold;
+
+}
+.title-details{
+  line-height:2.5;
+  font-weight:bold;
+}
+.title-table{
+  margin-bottom:2rem;
+  font-size: 11pt !important;
+}
+.header{
+  text-align:right;
+  margin-top:1rem;
+  margin-bottom:1rem;
+}
+.break {
+    page-break-before: always;
+}
+.table { page-break-inside:auto; }
+tr    { page-break-inside:avoid; page-break-after:auto; }
+thead { display:table-header-group; }
+tfoot { display:table-footer-group; }
+.title-annexe{
+}
+.table-no-border tr td{
+  padding-right:5rem;
+  font-weight:600;
+}
+.bold{
+  font-weight:bold !important;
+}

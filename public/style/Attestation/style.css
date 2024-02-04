@@ -1,0 +1,214 @@
+@font-face {
+    font-family: "Impact";
+    src: url("../fonts/serveur/impact.ttf");
+}
+@font-face {
+    font-family: "Haettenschweiler";
+    src: url("../fonts/downloaded/Haettenschweiler.ttf");
+}
+@font-face {
+    font-family: "Arial Narrow Bold";
+    src: url("../fonts/serveur/Arial_Bold.ttf");
+}
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    display: flex;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    gap: 10rem;
+    width: auto;
+    height: 1400px;
+}
+
+img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.header {
+    height: 325px;
+    width: 100%;
+    display: flex;
+    display: -webkit-box;
+    position: relative;
+}
+
+.orange-bar-left {
+    background-color: #F7941E;
+    width: 8%;
+}
+
+
+.white-bar-left {
+    background-color:  white;
+    width: 8%;
+}
+
+.main-header {
+    background-color: #fff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-flex: 1;
+    gap: 1rem;
+
+}
+
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    display: -webkit-box;
+    height: 2rem;
+}
+
+.top-bar .orange-top {
+    background-color: #F7941E;
+    width: 60%;
+    flex: 1;
+    -webkit-box-flex: 1;
+}
+
+.top-bar .brown-top {
+    width: 40%;
+    background-color: #3B2313;
+    flex: 1;
+    -webkit-box-flex: 1;
+}
+
+.header-contact .text {
+    text-align: end;
+    padding: 2rem 8rem;
+}
+
+.title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: end;
+    -webkit-box-flex: 1;
+    -webkit-box-align: center;
+    font-size: 1.5rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 900;
+    text-shadow: 0px 0px 4px #9a9a9a;
+    gap: 4rem;
+    margin-right: 10rem;
+
+}
+.border-img {
+    width: 75%;
+    margin: 2.4rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-orient: horizontal;
+}
+.logo {
+    position: absolute;
+    width: 190px;
+    top: 60px;
+    left: 25px;
+}
+
+.main {
+    padding: 1.5rem;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-flex: 1;
+    gap: 3rem;
+    font-size: 1.5rem;
+    flex: 1;
+}
+
+.main .student-info {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 3rem;
+}
+.main .student-body {
+    margin-top: 3rem;
+}
+.main .info {
+    text-align: end;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+
+.nb-text {
+    font-size: 0.6rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.mt-100 {
+    margin-top: 3cm;
+}
+
+.year, .niveau, .branche, .annee-academique {
+    font-weight: bold;
+}
+
+
+/* Footer styles  */
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    gap: 1rem;
+}
+
+.icon {
+    width: 2cm;
+}
+
+.bar-container {
+    display: flex;
+    display: -webkit-box;
+    height: 2rem;
+}
+
+.bar-left {
+    background-color: #3B2313;
+    width: 35%;
+}
+
+.bar-right {
+    background-color: #F7941E;
+    width: 65%;
+}
+

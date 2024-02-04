@@ -1,0 +1,95 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@import url("https://pdfmonkey-resources.s3.eu-west-3.amazonaws.com/css/tailwind-light.min.css");
+
+body{
+    padding: 1rem;
+    display:flex;
+    flex-direction:column;
+    gap:0.5cm;
+    font-size:14pt;
+}
+img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.table1{
+    font-size: 13.1pt;
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-weight: bold;
+}
+.table1  tr{
+    width: 100%;
+}
+.table1 tr td,th{
+    border: 1px solid black;
+    text-align: center;
+    width: 10%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.table1 .full-brown > td {
+    background-color: #552702 !important;
+    color: #fff;
+}
+.full-orange{
+    background-color: #fde9d9 !important;
+}
+.table1 .left-text{
+    text-align: left !important;
+}
+.full-text-brown {
+    color :  #552702 !important;
+}
+
+.text-center{
+    text-align: center;
+}
+.table2 {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+}
+
+
+.table2 tr td{
+    padding-top:0.35cm;
+    padding-bottom:0.35cm;
+    padding-left:0.2cm;
+    padding-right:0.2cm;
+}
+
+.fs-slg{
+    font-size: 14pt;
+}
+input{
+    margin-left:0.2cm;
+    margin-right:0.2cm;
+}
+.s-lg{
+    width: 40% !important;
+}
+.logo{
+    position: absolute;
+    top:1rem;
+    left:1rem;
+    width: 2.3cm;
+    height: 2.3cm;
+}
+.text-logo{
+    margin-left:3cm;
+    width: 6cm;
+}
+.mt-5{
+    margin-top: 0.5cm;
+}

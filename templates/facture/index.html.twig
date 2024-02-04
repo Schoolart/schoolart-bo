@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ kernel }}\public\style\Facture\style.css">
+</head>
+
+<body>
+{% set trans_day_hash = {
+    "November": "Novembre",
+    "January": "Janvier",
+    "February": "Février",
+    "March": "Mars",
+    "April":"Avril",
+    "May": "Mai",
+    "June":"Juin",
+    "July":"Juillet",
+    "August": "Août",
+    "September":"Septembre",
+    "October":"Octobre",
+    "December":"Décembre"
+}
+%}
+{% set trans_day_hash1 = {
+    "Monday":"Lundi",
+    "Tuesday":"Mardi",
+    "Wednesday":"Mercredi",
+    "Thursday":"Jeudi",
+    "Friday":"Vendredi",
+    "Saturday":"Samedi",
+    "Sunday":"Dimanche"
+}
+%}
+{% set trans_dash_niv = {
+    1:"première",
+    2:"deuxième",
+    3:"troisième"
+}
+%}
+<header class="header">
+    <div class="logo">
+        <img src="{{ kernel }}\public\images\instituts\{{ etudiant.instituts[0].logo }}" alt="ISM icon">
+    </div>
+    <div class="orange-bar-left">
+
+    </div>
+    <div class="white-bar-left">
+
+    </div>
+
+    <div class="main-header">
+        <div class="top-bar">
+            <div class="orange-top">
+
+            </div>
+            <div class="brown-top">
+
+            </div>
+        </div>
+        <div class="informations">
+            <div class="student-details">
+                <div class="info">
+                    <p class="label xs-print">
+                        Grade:
+                    </p>
+                    <p class="value xs-print">
+                        {{ classe.specialisation.mention.domaine.grade.intitule}}
+                    </p>
+                </div>
+
+                <div class="info">
+                    <p class="label xs-print">
+                        Domaine:
+                    </p>
+                    <p class="value xs-print">
+                        {{ classe.specialisation.mention.domaine.intitule}}
+                    </p>
+                </div>
+
+
+                <div class="info">
+                    <p class="label xs-print">
+                        Specialite:
+                    </p>
+                    <p class="value xs-print">
+                        {{ classe.specialisation.intitule}}
+                    </p>
+                </div>
+
+                <div class="info">
+                    <p class="label xs-print">
+                        Classe:
+                    </p>
+                    <p class="value xs-print">
+                        {{ classe.nomClasse }}
+                    </p>
+                </div>
+
+                <div class="bottom-info">
+                    <div class="info">
+                        <p class="label xs-print">
+                            Nom de l'etudiant:
+                        </p>
+                        <p class="value xs-print">
+                            {{ etudiant.prenom }} {{ etudiant.nom }}
+                        </p>
+                    </div>
+
+                    <div class="info">
+                        <p class="label xs-print">
+                            Date et lieu de naissance:
+                        </p>
+                        <p class="value xs-print">
+                            Né(e) le {{ etudiant.dateNaissance|date("d/m/Y")}} à {{ etudiant.villeNaissance }} ({{ etudiant.paysNaissance }})
+                        </p>
+                    </div>
+
+                    <div class="info">
+                        <p class="label xs-print">
+                            Matricule
+                        </p>
+                        <p class="value xs-print">
+                            {{ etudiant.identifiant }}
+                        </p>
+                    </div>
+                    <div class="info">
+                        <p class="label xs-print">
+                            Boursier
+                        </p>
+                        <p class="value xs-print">
+                            {{ etudiant.boursier ? 'OUI' : 'NON'}}
+                        </p>
+                        {% if etudiant.boursier %}
+                            <p class="label xs-print">
+                                Montant de la bourse
+                            </p>
+                            <p class="value xs-print">
+                                {{  }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="metadata"style="margin-top: 0.1cm;">
+                <p class="metadata-facture xs-print" >
+                    Facture N°: <span> {{ facture.code }}</span>
+                </p>
+                <p class="metadata-id xs-print">
+                    Identifiant de paiement: <span> {{ etudiant.identifiantPaiement }} </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main">
+    <div class="title">
+        <h1 class="text-bold text-center impact">FACTURE</h1>
+        <div class="border-img" style="margin-top: 0.8cm">
+            <img src="{{ kernel }}\public\assets\images\border.png" alt="">
+        </div>
+    </div>
+    <div class="text-bold main-container d-flex-column">
+        <div class="d-flex-column" style="margin-bottom:1cm; ; margin-top: 0.8cm; ">
+            <div class="d-flex-row-1">
+                <div class="d-flex-column" style="margin-right:4cm;">
+                    <div class="small-print">Description du Paiement:</div>
+                    <div class="small-print">Scolarité du mois {{ trans_day_hash[facture.parametrageFraisScolarite.date | date('F') ]}} {{ facture.parametrageFraisScolarite.date | date('Y') }}:</div>
+                    <div class="small-print">Date limite de Paiement:</div>
+
+                </div>
+                <div class="d-flex-column">
+                    <div class="small-print">{{ facture.parametrageFraisScolarite.libelle}}</div>
+                    <div class="small-print impact">{{ facture.montant | number_format(0,'',' ')}} XOF</div>
+                    <div class="small-print">{{ facture.parametrageFraisScolarite.date | date('d/m/Y') }}</div>
+                </div>
+            </div>
+            <div class="italic small-print">Arrêtée la présente facture a la somme de {{ facture.parametrageFraisScolarite.montant | craue_spellout}} XOF</div>
+        </div>
+
+        <div class="d-flex-column" style="margin-bottom:1cm; ">
+            <div class="text-z5 small-print impact">Situation des impayés de l'étudiant à la date du {{ "Now" | date('d/m/Y') }}</div>
+            <div class="d-flex-row-2">
+                <div class="d-flex-column" style="margin-right:5.6cm;">
+                    <div class="small-print">Rappel des impayés:</div>
+                    <div class="small-print">Montant total des impayés:</div>
+                </div>
+                <div class="d-flex-column">
+                    <div  class="small-print">
+                        {% set result=0 %}
+                        {% if factures|length > 0 %}
+                            {% for  facture  in factures %}
+                                {% set result = result + facture.montant %}
+                                <span> {{facture.parametrageFraisScolarite.libelle}} ({{facture.montant | number_format(0,'',' ')}} XOF le {{ facture.parametrageFraisScolarite.date|date("d/m/Y")}}), </span>
+                            {%  endfor %}
+                            {% else %}
+                                <span>_</span>
+                        {% endif %}
+                    </div>
+                    <div  class="small-print impact">{{ result | number_format(0,'',' ') }} XOF</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex-column" style="margin-bottom:1cm; ">
+            <div class="text-z5 small-print impact">Situation du compte de l'élève</div>
+            <div class="d-flex-row-3">
+                <div class="d-flex-column" style="margin-right:2cm;">
+                    <div class="small-print">Montant total dû (impayés + facture):</div>
+                    <div class="small-print">Rappel du montant déjà versé:</div>
+                    <div class="small-print">Rappel du restant dû sur le total de scolarité:</div>
+                </div>
+                <div class="d-flex-column">
+                    <div class="small-print impact">{{ (result + facture.montant) | number_format(0,'',' ')}} XOF</div>
+                    <div class="small-print">{{ solde.soldePaiement | number_format(0,'',' ')}} XOF</div>
+                    <div class="small-print">{{ (solde.soldeEcheance - solde.soldePaiement) | number_format(0,'',' ')}} XOF</div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="text-bold-none">
+            <p class="xs-print">Nb: Merci de noter que le rappel du restant dû sur la scolarité ne tient compte que du cumul des montants des différentes mensualités qui n’ont pas encore fait l’objet d’une facturation. Les impayés ainsi que le montant relatif à la présente
+                facture ne sont pas pris en compte dans ce rappel mais restent totalement exigibles et apparaitront sur les lignes prévues à cet effet.</p>
+        </div>
+    </div>
+</main>
+
+<footer class="d-flex-column">
+    <div class="d-flex-column gap text-bold  text-right" style="margin-bottom:0.4cm; ">
+        <div style="margin-bottom:0.4cm; ">{{ institut.ville }}, le {{ trans_day_hash1["Now" | date('l')]}} {{ "Now"|date('d')}} {{ trans_day_hash[ "Now"|date('F')]  }} {{ "Now" | date('Y') }}</div>
+        <div>La Direction</div>
+    </div>
+    <div class="margin-text" style="margin-bottom:0.6cm; ">
+        <p>Pour toute question ou réclamation, nous vous prions de nous adresser un courriel à l’adresse reclamation@ism.edu.sn ou de
+            nous appeler au {{ institut.telephone }}.</p>
+    </div>
+    <div class="d-flex-column text-center" style="margin-bottom:0.2cm; ">
+        <div>{{ institut.nom}}</div>
+        <div>{{ institut.adresse1 }} - BP {{ institut.codePostal }}</div>
+        <div>{{ institut.ville }}</div>
+        <div>Tel: {{ institut.telephone }}</div>
+        <div>Mail: {{ institut.email }}</div>
+    </div>
+
+
+</footer>
+<div class="bar-container">
+    <div class="bar-left">
+    </div>
+    <div class="bar-right">
+
+    </div>
+</div>
+</body>
+
+</html>

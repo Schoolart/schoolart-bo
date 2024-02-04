@@ -1,0 +1,139 @@
+<div class="body">
+{% set trans_day_hash = {
+    "November": "Novembre",
+    "January": "Janvier",
+    "February": "Février",
+    "March": "Mars",
+    "April":"Avril",
+    "May": "Mai",
+    "June":"Juin",
+    "July":"Juillet",
+    "August": "Août",
+    "September":"Septembre",
+    "October":"Octobre",
+    "December":"Décembre"
+}
+%}
+{% set trans_day_hash1 = {
+    "Monday":"Lundi",
+    "Tuesday":"Mardi",
+    "Wednesday":"Mercredi",
+    "Thursday":"Jeudi",
+    "Friday":"Vendredi",
+    "Saturday":"Samedi",
+    "Sunday":"Dimanche"
+}
+%}
+{% set trans_dash_niv = {
+    1:"première",
+    2:"deuxième",
+    3:"troisième"
+}
+%}
+<header class="header">
+    <div class="logo">
+        <img src="{{ kernel }}\public\images\instituts\{{ etudiant.instituts[0].logo }}" alt="ISM icon">
+    </div>
+    <div class="orange-bar-left">
+
+    </div>
+    <div class="white-bar-left">
+
+    </div>
+
+    <div class="main-header">
+        <div class="top-bar">
+            <div class="brown-top">
+
+            </div>
+            <div class="orange-top">
+
+            </div>
+        </div>
+        <div class="header-contact">
+            <p class="text">
+                {{ etablissement.adresse1 }} - BP {{ etablissement.codePostal}} {{ etablissement.ville }} <br/>
+                Tél. {{ etablissement.telephone }} <br/>
+                Mail. {{ etablissement.email }} <br/>
+                Website: {{ etablissement.siteWeb }} </br/>
+            </p>
+        </div>
+        <div class="title">
+            <div class="title-size">AUTORISATION D'INSCRIPTION</div>
+            <div class="border-img">
+                <img src="{{ kernel }}\public\assets\images\border.png" alt="">
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main">
+    <p>
+        Nous soussigné, <strong>{{ etablissement.nom }}</strong> , attestons que:
+    </p>
+    <p class="student-info">
+
+        {{ etudiant.prenom }} {{ etudiant.nom }} <br/>
+        Né(e) le {{ etudiant.dateNaissance|date('d')}} {{ trans_day_hash[etudiant.dateNaissance|date('F')]  }} {{ etudiant.dateNaissance | date('Y') }} à {{ etudiant.villeNaissance }} ({{ etudiant.paysNaissance }}) <br/>
+        de nationalité {{ etudiant.nationalite }} <br/>
+        Matricule {{ etudiant.identifiant }} <br/>
+
+    </p>
+    <p class="student-body">
+    <p>
+        est autorisé(e) à s'inscrire en <span class="year">{{ trans_dash_niv[niveauLettre+1]}} année</span> de <span class="niveau">{{niveau}}</span> en <span class="branche">{{ specialisation.intitule }}</span> au titre de l'année académique <span class="annee-academique">{{ anneeNew }}</span>. Cette inscription est accordée sous
+        réserve que le(la) concerné(e) se présente ulterieurement aux examens des modules dont la note est inférieure à dix sur vingt (10/20) dans les unités
+        d'enseignements non validées de l'année académique <span class="year">{{ anneeOld.libelle }}.</span>
+    </p>
+    <p class="student-body">
+        Le nombre d'inscriptions administratives en <span class="prev-year">{{ trans_dash_niv[niveauLettre]}} année</span> de <span class="niveau">{{niveau}}</span>
+        est limité à deux (2) inscriptions.
+    </p>
+    <p class="student-body">
+        En foi de quoi, nous lui délivrons la présente attestation pour servir et valoir
+        ce que de droit.
+    </p>
+    <p class="info">
+        Fait à <span class="ville">{{ etablissement.ville }}</span>, <span class="date-fait">
+            le {{ trans_day_hash1["Now" | date('l')]}} {{ "Now"|date('d')}} {{ trans_day_hash[ "Now"|date('F')]  }} {{ "Now" | date('Y') }}</span>
+    </p>
+    <p class="info">
+        La Direction
+    </p>
+    <p class="mt-100">
+        <span class="nb-text">NB: il est rappelle qu'aucun duplicata de ce document ne sera délivré. Il appartient a l'étudiant d'en faire des copies et de les certifier conformes</span>
+    </p>
+</main>
+<footer class="footer-container">
+    <div class="icon-container">
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\AABS.jpg">
+        </div>
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\UEMOA.jpg">
+        </div>
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\GBSN.jpg">
+        </div>
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\EFMD.jpg">
+        </div>
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\CAMES.png">
+        </div>
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\AGENCE.png">
+        </div>
+        <div class="icon">
+            <img src="{{ kernel }}\public\assets\images\CCIAD.png">
+        </div>
+    </div>
+    <div class="bar-container">
+        <div class="bar-left">
+
+        </div>
+        <div class="bar-right">
+
+        </div>
+    </div>
+</footer>
+</div>
